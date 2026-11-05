@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部首大發現 Radical Discovery - K2 中文部首互動學習網</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Fluent & Soft -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#2DD4BF',
+                            mint: '#A7F3D0',
+                            bg: '#F0FDF4',
+                            darkTeal: '#0F766E',
+                            softYellow: '#FEF08A',
+                            coral: '#FF7E67',
+                            softBlue: '#E0F2FE',
+                            purple: '#DDD6FE'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', '"Fredoka"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F0FDF4;
+            font-family: 'Noto Sans TC', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Bounce & Hover Animations for K2 kids */
+        .bounce-on-hover:hover {
+            transform: scale(1.06) translateY(-4px);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Radical Element Animations */
+        @keyframes fireGlow {
+            0%, 100% { box-shadow: 0 0 15px #FF7E67, inset 0 0 10px #FEF08A; }
+            50% { box-shadow: 0 0 30px #EF4444, inset 0 0 20px #F59E0B; }
+        }
+        .anim-fire { animation: fireGlow 1.5s infinite alternate; }
+
+        @keyframes waterWave {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+        }
+        .anim-water { animation: waterWave 3s infinite ease-in-out; }
+
+        @keyframes floatBubble {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .anim-float { animation: floatBubble 4s ease-in-out infinite; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E6F4F1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2DD4BF;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b-4 border-teal-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+            <!-- Logo & Mascot Branding -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('learn')">
+                <div class="w-12 h-12 bg-teal-400 rounded-full flex items-center justify-center text-white text-2xl shadow-inner border-2 border-white">
+                    🐼
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-teal-800 tracking-wide">部首大發現</h1>
+                    <p class="text-xs text-teal-600 font-bold">Radical Discovery • K2 專用</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex items-center space-x-1 md:space-x-2 overflow-x-auto py-1">
+                <button onclick="switchTab('learn')" id="tab-learn" class="nav-btn bg-teal-500 text-white font-bold px-4 py-2.5 rounded-2xl text-sm md:text-base flex items-center gap-1.5 shadow-md transition-all">
+                    <i class="fa-solid fa-shapes"></i> 部首學習區
+                </button>
+                <button onclick="switchTab('games')" id="tab-games" class="nav-btn bg-slate-100 hover:bg-teal-100 text-slate-700 font-bold px-4 py-2.5 rounded-2xl text-sm md:text-base flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-gamepad"></i> 互動遊戲區
+                </button>
+                <button onclick="switchTab('story')" id="tab-story" class="nav-btn bg-slate-100 hover:bg-teal-100 text-slate-700 font-bold px-4 py-2.5 rounded-2xl text-sm md:text-base flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-book-open-reader"></i> 動畫故事區
+                </button>
+                <button onclick="switchTab('voice')" id="tab-voice" class="nav-btn bg-slate-100 hover:bg-teal-100 text-slate-700 font-bold px-4 py-2.5 rounded-2xl text-sm md:text-base flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-microphone-lines"></i> 語音朗讀區
+                </button>
+                <button onclick="switchTab('parents')" id="tab-parents" class="nav-btn bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold px-4 py-2.5 rounded-2xl text-sm md:text-base flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-user-shield"></i> 家長支援區
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
+
+        <!-- Mascot Welcome Banner -->
+        <div id="mascot-banner" class="bg-gradient-to-r from-teal-400 to-emerald-300 rounded-3xl p-4 md:p-6 mb-6 text-white shadow-lg flex items-center justify-between relative overflow-hidden">
+            <div class="z-10 max-w-2xl">
+                <span class="bg-white/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-teal-900">歡迎來到部首世界！</span>
+                <h2 id="mascot-speech" class="text-xl md:text-2xl font-black mt-2 leading-relaxed">
+                    你好！我是小熊貓「嘟嘟」🐼！點擊下方漂亮的部首按鈕，一起來探索漢字的秘密吧！
+                </h2>
+            </div>
+            <div class="text-6xl md:text-8xl transform hover:scale-110 transition-transform duration-300 z-10 cursor-pointer" onclick="speakText(document.getElementById('mascot-speech').innerText)">
+                🐼
+            </div>
+            <!-- Decorative background elements -->
+            <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+        </div>
+
+        <!-- ================= SECTION 1: 部首學習區 ================= -->
+        <section id="sec-learn" class="tab-content space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-2xl font-black text-slate-800">點一點學習部首 (15個核心部首)</h3>
+                    <p class="text-sm text-slate-500 font-bold">點擊卡片聽讀音、看動畫與組合字詞</p>
+                </div>
+                <div class="bg-teal-100 text-teal-800 font-bold px-4 py-2 rounded-xl text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-star text-amber-400"></i>
+                    <span>已掌握: <span id="mastered-count">0</span> / 15</span>
+                </div>
+            </div>
+
+            <!-- Radicals Grid -->
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4" id="radicals-grid">
+                <!-- Dynamically Populated by JS -->
+            </div>
+
+            <!-- Radical Detail Modal Overlay -->
+            <div id="radical-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden border-4 border-teal-300 transform transition-all animate-fade-in">
+                    <!-- Modal Header -->
+                    <div id="modal-header-bg" class="p-6 bg-teal-400 text-white flex items-center justify-between relative">
+                        <div class="flex items-center space-x-4">
+                            <div id="modal-radical-box" class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center text-5xl font-black text-teal-600 shadow-md">
+                                木
+                            </div>
+                            <div>
+                                <h4 id="modal-radical-name" class="text-3xl font-black">木部</h4>
+                                <p id="modal-radical-pinyin" class="text-teal-100 font-bold">mù • 樹木、木頭</p>
+                            </div>
+                        </div>
+                        <button onclick="closeRadicalModal()" class="w-10 h-10 bg-white/20 hover:bg-white/40 rounded-full text-white text-xl flex items-center justify-center font-bold">
+                            ✕
+                        </button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="p-6 space-y-6">
+                        <!-- Meaning & Explanation -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-start gap-3">
+                            <span class="text-2xl">💡</span>
+                            <div>
+                                <h5 class="font-bold text-slate-700 text-sm">嘟嘟的小解釋：</h5>
+                                <p id="modal-meaning" class="text-slate-600 font-medium text-base mt-0.5"></p>
+                            </div>
+                        </div>
+
+                        <!-- Vocabulary Examples -->
+                        <div>
+                            <h5 class="font-bold text-slate-800 text-base mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-book text-teal-500"></i> 常見相關字與詞語：
+                            </h5>
+                            <div id="modal-words-container" class="grid grid-cols-3 gap-3">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Interactive Action Buttons -->
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                            <button id="btn-audio-modal" onclick="" class="bg-teal-500 hover:bg-teal-600 text-white font-bold px-6 py-3 rounded-2xl text-base flex items-center gap-2 shadow-md bounce-on-hover">
+                                <i class="fa-solid fa-volume-high text-xl"></i> 聽讀音
+                            </button>
+                            <button id="btn-mark-master" onclick="" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-2xl text-base flex items-center gap-2 shadow-md bounce-on-hover">
+                                <i class="fa-solid fa-check-circle text-xl"></i> 標記為已學會
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: 互動遊戲區 ================= -->
+        <section id="sec-games" class="tab-content space-y-6 hidden">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                    <h3 class="text-2xl font-black text-slate-800">互動遊戲區</h3>
+                    <p class="text-sm text-slate-500 font-bold">玩遊戲、考考你，邊玩邊學部首！</p>
+                </div>
+                <!-- Game Switcher Buttons -->
+                <div class="bg-slate-200 p-1.5 rounded-2xl flex space-x-2">
+                    <button onclick="loadGame('fisherman')" id="gtab-fisherman" class="px-4 py-2 rounded-xl font-bold text-sm bg-white text-teal-700 shadow-sm">
+                        🎣 部首小釣手
+                    </button>
+                    <button onclick="loadGame('builder')" id="gtab-builder" class="px-4 py-2 rounded-xl font-bold text-sm text-slate-600 hover:text-slate-800">
+                        🧩 文字組裝師
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Container -->
+            <div class="bg-white rounded-3xl border-4 border-teal-200 shadow-xl overflow-hidden min-h-[450px] relative flex flex-col justify-between p-6">
+                
+                <!-- GAME 1: 部首小釣手 (Radical Fisherman) -->
+                <div id="game-fisherman" class="space-y-6">
+                    <div class="flex items-center justify-between bg-teal-50 p-4 rounded-2xl border border-teal-100">
+                        <div>
+                            <span class="text-xs font-bold text-teal-600 uppercase">遊戲目標</span>
+                            <h4 class="text-lg font-black text-teal-900" id="fish-target-prompt">請找出含有「氵 (三點水)」的魚兒！</h4>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-slate-500">得分</span>
+                            <div class="text-2xl font-black text-amber-500" id="fish-score">⭐ 0</div>
+                        </div>
+                    </div>
+
+                    <!-- Water Area with Floating Fish -->
+                    <div class="relative bg-gradient-to-b from-sky-200 to-blue-400 rounded-2xl h-72 border-2 border-sky-300 overflow-hidden flex items-center justify-around px-4" id="fish-pond">
+                        <!-- Floating Fish Buttons dynamically rendered -->
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-xs text-slate-400 font-bold">點擊正確的魚兒即可釣起，獲得小星星獎勵！</p>
+                    </div>
+                </div>
+
+                <!-- GAME 2: 文字組裝師 (Character Builder) -->
+                <div id="game-builder" class="space-y-6 hidden">
+                    <div class="flex items-center justify-between bg-amber-50 p-4 rounded-2xl border border-amber-100">
+                        <div>
+                            <span class="text-xs font-bold text-amber-600 uppercase">文字拼圖</span>
+                            <h4 class="text-lg font-black text-amber-900" id="builder-prompt">拖拽或點擊合適的部首，組合出「燈」字！</h4>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-slate-500">得分</span>
+                            <div class="text-2xl font-black text-amber-500" id="builder-score">⭐ 0</div>
+                        </div>
+                    </div>
+
+                    <!-- Assembly Zone -->
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-6 py-6 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                        <!-- Left Drop Zone: Radical -->
+                        <div id="drop-radical" onclick="clearBuilderSlot('radical')" class="w-28 h-28 bg-white border-4 border-dashed border-teal-400 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:bg-teal-50 transition-colors shadow-inner">
+                            <span id="slot-radical-text" class="text-4xl font-black text-teal-600">?</span>
+                            <span class="text-xs text-slate-400 font-bold mt-1">選擇部首</span>
+                        </div>
+
+                        <span class="text-3xl font-black text-slate-400">+</span>
+
+                        <!-- Right Body Component (Fixed) -->
+                        <div class="w-28 h-28 bg-white border-4 border-slate-300 rounded-2xl flex flex-col items-center justify-center shadow-sm">
+                            <span id="builder-body-text" class="text-4xl font-black text-slate-700">登</span>
+                            <span class="text-xs text-slate-400 font-bold mt-1">聲旁/偏旁</span>
+                        </div>
+
+                        <span class="text-3xl font-black text-slate-400">=</span>
+
+                        <!-- Result Target Character -->
+                        <div id="builder-result-box" class="w-28 h-28 bg-amber-100 border-4 border-amber-400 rounded-2xl flex flex-col items-center justify-center shadow-md">
+                            <span id="builder-target-text" class="text-4xl font-black text-amber-800">❓</span>
+                            <span class="text-xs text-amber-600 font-bold mt-1">目標字</span>
+                        </div>
+                    </div>
+
+                    <!-- Available Radicals Selection Row -->
+                    <div>
+                        <p class="text-xs font-bold text-slate-500 mb-2">請點擊選取正確的部首填入：</p>
+                        <div class="flex justify-center gap-3" id="builder-options">
+                            <!-- Options rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: 動畫故事區 ================= -->
+        <section id="sec-story" class="tab-content space-y-6 hidden">
+            <div>
+                <h3 class="text-2xl font-black text-slate-800">動畫故事區：嘟嘟大冒險</h3>
+                <p class="text-sm text-slate-500 font-bold">跟著小熊貓嘟嘟一起看故事、學部首由來！</p>
+            </div>
+
+            <!-- Interactive Storybook Component -->
+            <div class="bg-white rounded-3xl border-4 border-teal-200 shadow-xl overflow-hidden p-6 space-y-6">
+                <!-- Story Header -->
+                <div class="flex items-center justify-between border-b pb-4">
+                    <h4 class="text-xl font-black text-teal-800 flex items-center gap-2">
+                        <span>🌧️</span> <span id="story-title">第一集：雨天大冒險</span>
+                    </h4>
+                    <span class="bg-teal-100 text-teal-700 font-bold text-xs px-3 py-1 rounded-full" id="story-step-indicator">頁數: 1 / 4</span>
+                </div>
+
+                <!-- Animated Display Screen -->
+                <div class="bg-gradient-to-b from-sky-100 to-indigo-50 border-2 border-sky-200 rounded-2xl p-8 min-h-[300px] flex flex-col items-center justify-center text-center relative overflow-hidden">
+                    <!-- Dynamic Visual Illustration -->
+                    <div id="story-visual" class="text-8xl mb-4 transition-all duration-500 transform hover:scale-110">
+                        ☁️ 💧 🐼
+                    </div>
+                    <!-- Story Narration Text -->
+                    <p id="story-text" class="text-xl font-bold text-slate-700 max-w-xl leading-relaxed">
+                        今天天空下起了大雨，嘟嘟連忙抬頭看。天空中的「雨」字變成了烏雲與水滴！
+                    </p>
+                </div>
+
+                <!-- Story Controls -->
+                <div class="flex items-center justify-between">
+                    <button onclick="prevStoryStep()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-5 py-3 rounded-2xl flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-chevron-left"></i> 上一頁
+                    </button>
+                    <button onclick="readStoryCurrentPage()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-2xl flex items-center gap-2 shadow-md bounce-on-hover">
+                        <i class="fa-solid fa-volume-high"></i> 聽嘟嘟講故事
+                    </button>
+                    <button onclick="nextStoryStep()" class="bg-teal-500 hover:bg-teal-600 text-white font-bold px-5 py-3 rounded-2xl flex items-center gap-2 shadow-sm">
+                        下一頁 <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4: 語音朗讀區 ================= -->
+        <section id="sec-voice" class="tab-content space-y-6 hidden">
+            <div>
+                <h3 class="text-2xl font-black text-slate-800">語音朗讀與聽力練習區</h3>
+                <p class="text-sm text-slate-500 font-bold">點擊聽標準發音，練習開口朗讀部首！</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Radical Pronunciation Cards -->
+                <div class="bg-white p-6 rounded-3xl border-4 border-teal-200 shadow-xl space-y-4">
+                    <h4 class="text-lg font-black text-teal-800 flex items-center gap-2">
+                        <i class="fa-solid fa-headphones text-teal-500"></i> 部首發音閃卡
+                    </h4>
+                    <div class="grid grid-cols-3 gap-3" id="voice-flashcards-grid">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Listening Quiz Challenge -->
+                <div class="bg-white p-6 rounded-3xl border-4 border-amber-200 shadow-xl space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-lg font-black text-amber-800 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question text-amber-500"></i> 聽音辨部首小挑戰
+                        </h4>
+                        <p class="text-xs text-slate-500 font-bold mt-1">按下播放鍵聽語音，然後選出正確的部首卡片！</p>
+                    </div>
+
+                    <div class="bg-amber-50 rounded-2xl p-6 text-center border border-amber-100 my-4 space-y-3">
+                        <button onclick="playVoiceQuizAudio()" class="w-16 h-16 bg-amber-400 hover:bg-amber-500 text-slate-900 rounded-full text-2xl shadow-lg inline-flex items-center justify-center bounce-on-hover">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <p class="text-xs font-bold text-amber-800">點擊播放聲音</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3" id="voice-quiz-options">
+                        <!-- Dynamically populated options -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 5: 家長支援區 ================= -->
+        <section id="sec-parents" class="tab-content space-y-6 hidden">
+            <div>
+                <h3 class="text-2xl font-black text-slate-800">家長支援區 (Parent Support)</h3>
+                <p class="text-sm text-slate-500 font-bold">了解幼兒學習進度、理論背景與下載線下工作紙</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Learning Progress Dashboard -->
+                <div class="bg-white p-6 rounded-3xl border-4 border-teal-200 shadow-xl space-y-4 md:col-span-1">
+                    <h4 class="text-lg font-black text-teal-800 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-teal-500"></i> 學習進度儀表板
+                    </h4>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-slate-600 mb-1">
+                                <span>部首掌握度</span>
+                                <span id="progress-percent-text">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden">
+                                <div id="progress-bar" class="bg-teal-400 h-full w-0 transition-all duration-500"></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl space-y-2 text-xs font-bold text-slate-600">
+                            <div class="flex justify-between">
+                                <span>已學習時間:</span>
+                                <span id="time-spent-text" class="text-teal-700">0 分鐘</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>獲得獎勵星星:</span>
+                                <span id="total-stars-text" class="text-amber-500">⭐ 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theory & Pedagogy Guidelines -->
+                <div class="bg-white p-6 rounded-3xl border-4 border-amber-200 shadow-xl space-y-4 md:col-span-2">
+                    <h4 class="text-lg font-black text-amber-800 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-amber-500"></i> 教育心理學設計理念 (Piaget & Vygotsky)
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs leading-relaxed">
+                        <div class="bg-amber-50/60 p-4 rounded-2xl border border-amber-100">
+                            <h5 class="font-black text-amber-900 text-sm mb-1">皮亞傑 (Piaget) 建構主義</h5>
+                            <p class="text-slate-600">4-5歲幼兒處於前運思期，需透過具體動手操作（點擊、拖拽）將抽象部首符號轉化為具體的概念意象。</p>
+                        </div>
+                        <div class="bg-teal-50/60 p-4 rounded-2xl border border-teal-100">
+                            <h5 class="font-black text-teal-900 text-sm mb-1">維高斯基 (Vygotsky) ZPD理論</h5>
+                            <p class="text-slate-600">提供家長鷹架支援（Parental Scaffolding），透過親子共讀區促進家長與幼兒於「近端發展區」內共同探索。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Offline Printable Worksheet Generator -->
+            <div class="bg-white p-6 rounded-3xl border-4 border-indigo-200 shadow-xl space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="text-lg font-black text-indigo-900 flex items-center gap-2">
+                            <i class="fa-solid fa-print text-indigo-500"></i> 免費下載 / 列印線下工作紙 (PDF Preview)
+                        </h4>
+                        <p class="text-xs text-slate-500 font-bold">配合香港教育局《幼稚園教育課程指引》設計，延伸線上學習！</p>
+                    </div>
+                    <button onclick="printWorksheet()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2.5 rounded-2xl text-sm flex items-center gap-2 shadow-md bounce-on-hover">
+                        <i class="fa-solid fa-file-pdf"></i> 列印工作紙
+                    </button>
+                </div>
+
+                <!-- Worksheet Printable Container / Preview -->
+                <div id="worksheet-preview" class="border-2 border-dashed border-slate-300 p-6 rounded-2xl bg-slate-50">
+                    <div class="text-center pb-4 border-b border-slate-200">
+                        <h2 class="text-xl font-black text-slate-800">「部首大發現」K2 親子趣味練習紙</h2>
+                        <p class="text-xs text-slate-500 font-bold mt-1">學生姓名：__________________  日期：2026年___月___日</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                        <div class="border-2 border-slate-200 bg-white p-3 rounded-xl text-center">
+                            <div class="text-3xl font-black text-teal-600">水 (氵)</div>
+                            <div class="text-xs text-slate-400 mt-1">連連看: 🌊 海洋</div>
+                        </div>
+                        <div class="border-2 border-slate-200 bg-white p-3 rounded-xl text-center">
+                            <div class="text-3xl font-black text-orange-600">火 (🔥)</div>
+                            <div class="text-xs text-slate-400 mt-1">連連看: 💡 檯燈</div>
+                        </div>
+                        <div class="border-2 border-slate-200 bg-white p-3 rounded-xl text-center">
+                            <div class="text-3xl font-black text-emerald-600">木 (🌲)</div>
+                            <div class="text-xs text-slate-400 mt-1">連連看: 森林</div>
+                        </div>
+                        <div class="border-2 border-slate-200 bg-white p-3 rounded-xl text-center">
+                            <div class="text-3xl font-black text-blue-600">雨 (🌧️)</div>
+                            <div class="text-xs text-slate-400 mt-1">連連看: 雲朵</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 15-Minute Screen Time Rest Modal (Safety & Health Concern) -->
+    <div id="rest-modal" class="hidden fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white max-w-md w-full rounded-3xl p-6 text-center space-y-4 border-4 border-amber-300 shadow-2xl">
+            <div class="text-7xl animate-bounce">🐼💤</div>
+            <h3 class="text-2xl font-black text-amber-900">嘟嘟提醒：眼睛要休息囉！</h3>
+            <p class="text-sm text-slate-600 font-bold">你已經專心學習了 15 分鐘！請眨眨眼睛、看看遠方或喝口水吧！</p>
+            <button onclick="closeRestModal()" class="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-black py-3 rounded-2xl text-base shadow-md">
+                好的，我知道了！
+            </button>
+        </div>
+    </div>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        /* -------------------------------------------------------------------------
+         * 1. DATA DEFINITIONS: 15 Core Radicals from Proposal
+         * ------------------------------------------------------------------------- */
+        const RADICALS_DATA = [
+            { id: 'wood', name: '木', pinyin: 'mù', meaning: '與樹木、木頭或植物有關。', bg: 'bg-emerald-500', icon: '🌲', words: [{w:'樹', p:'shù'}, {w:'林', p:'lín'}, {w:'桌', p:'zhuō'}] },
+            { id: 'person', name: '人', pinyin: 'rén', meaning: '與人類、動作或身份有關。', bg: 'bg-amber-500', icon: '🧍', words: [{w:'你', p:'nǐ'}, {w:'他', p:'tā'}, {w:'休', p:'xiū'}] },
+            { id: 'mouth', name: '口', pinyin: 'kǒu', meaning: '與嘴巴、說話或吃喝有關。', bg: 'bg-rose-500', icon: '👄', words: [{w:'吃', p:'chī'}, {w:'唱', p:'chàng'}, {w:'吹', p:'chuī'}] },
+            { id: 'hand', name: '手', pinyin: 'shǒu', meaning: '與手部動作（拿、打、提）有關。', bg: 'bg-purple-500', icon: '✋', words: [{w:'打', p:'dǎ'}, {w:'拿', p:'ná'}, {w:'提', p:'tí'}] },
+            { id: 'fire', name: '火', pinyin: 'huǒ', meaning: '與火、光亮、熱度或煮食有關。', bg: 'bg-red-500', icon: '🔥', words: [{w:'燈', p:'dēng'}, {w:'炒', p:'chǎo'}, {w:'熱', p:'rè'}] },
+            { id: 'earth', name: '土', pinyin: 'tǔ', meaning: '與泥土、大地、建築有關。', bg: 'bg-amber-700', icon: '🧱', words: [{w:'地', p:'dì'}, {w:'城', p:'chéng'}, {w:'場', p:'chǎng'}] },
+            { id: 'sun', name: '日', pinyin: 'rì', meaning: '與太陽、時間或光線有關。', bg: 'bg-yellow-500', icon: '☀️', words: [{w:'明', p:'míng'}, {w:'晴', p:'qíng'}, {w:'時', p:'shí'}] },
+            { id: 'moon', name: '月', pinyin: 'yuè', meaning: '與月亮、時間或身體器官有關。', bg: 'bg-indigo-400', icon: '🌙', words: [{w:'朋', p:'péng'}, {w:'期', p:'qī'}, {w:'服', p:'fú'}] },
+            { id: 'mountain', name: '山', pinyin: 'shān', meaning: '與高山、陸地地形有關。', bg: 'bg-stone-600', icon: '⛰️', words: [{w:'峰', p:'fēng'}, {w:'嶺', p:'lǐng'}, {w:'岩', p:'yán'}] },
+            { id: 'water', name: '水', pinyin: 'shuǐ', meaning: '與水、河流、液體有關。', bg: 'bg-sky-500', icon: '🌊', words: [{w:'海', p:'hǎi'}, {w:'河', p:'hé'}, {w:'洗', p:'xǐ'}] },
+            { id: 'rain', name: '雨', pinyin: 'yǔ', meaning: '與天氣、降水現象有關。', bg: 'bg-blue-600', icon: '🌧️', words: [{w:'雲', p:'yún'}, {w:'雪', p:'xuě'}, {w:'霧', p:'wù'}] },
+            { id: 'heart', name: '心', pinyin: 'xīn', meaning: '與心情、思想、感情有關。', bg: 'bg-pink-500', icon: '❤️', words: [{w:'想', p:'xiǎng'}, {w:'念', p:'niàn'}, {w:'愛', p:'ài'}] },
+            { id: 'speech', name: '言', pinyin: 'yán', meaning: '與言語、說話、文字有關。', bg: 'bg-teal-600', icon: '🗣️', words: [{w:'話', p:'huà'}, {w:'說', p:'shuō'}, {w:'講', p:'jiǎng'}] },
+            { id: 'walk', name: '走', pinyin: 'zǒu', meaning: '與行走、奔跑或移動有關。', bg: 'bg-emerald-600', icon: '🏃', words: [{w:'跑', p:'pǎo'}, {w:'趕', p:'gǎn'}, {w:'超', p:'chāo'}] },
+            { id: 'three_water', name: '氵', pinyin: 'shuǐ', meaning: '「水」部首常見變體，與水流相關。', bg: 'bg-cyan-500', icon: '💧', words: [{w:'江', p:'jiāng'}, {w:'湖', p:'hú'}, {w:'池', p:'chí'}] }
+        ];
+
+        /* -------------------------------------------------------------------------
+         * 2. STATE MANAGEMENT
+         * ------------------------------------------------------------------------- */
+        let state = {
+            mastered: new Set(),
+            stars: 0,
+            secondsSpent: 0,
+            activeTab: 'learn',
+            selectedModalRadical: null,
+            // Games State
+            fishScore: 0,
+            builderScore: 0,
+            builderCurrentSlot: null,
+            voiceQuizTarget: null
+        };
+
+        /* -------------------------------------------------------------------------
+         * 3. INITIALIZATION & TIMERS
+         * ------------------------------------------------------------------------- */
+        window.onload = function() {
+            renderRadicalsGrid();
+            renderVoiceFlashcards();
+            setupFishermanGame();
+            setupBuilderGame();
+            setupVoiceQuiz();
+
+            // Track Screen Time & Rest Reminder Timer (15 minutes)
+            setInterval(() => {
+                state.secondsSpent++;
+                if (state.secondsSpent % 60 === 0) {
+                    document.getElementById('time-spent-text').innerText = `${Math.floor(state.secondsSpent / 60)} 分鐘`;
+                }
+                // 15 minutes = 900 seconds
+                if (state.secondsSpent === 900) {
+                    document.getElementById('rest-modal').classList.remove('hidden');
+                }
+            }, 1000);
+        };
+
+        /* Tab Switcher */
+        function switchTab(tabId) {
+            state.activeTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-teal-500', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+            activeBtn.classList.add('bg-teal-500', 'text-white');
+
+            playAudioEffect('click');
+        }
+
+        /* -------------------------------------------------------------------------
+         * 4. AUDIO & SPEECH SYNTHESIS ENGINE (Web Speech & Web Audio API)
+         * ------------------------------------------------------------------------- */
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop current speaking
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-HK'; // Cantonese / Traditional Chinese
+                utterance.rate = 0.85; // Slightly slower for K2 children
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function playAudioEffect(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.1);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.1);
+                } else if (type === 'star') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                }
+            } catch (e) {
+                console.log('Audio Context not allowed without interaction');
+            }
+        }
+
+        /* -------------------------------------------------------------------------
+         * 5. SECTION 1: 部首學習區 LOGIC
+         * ------------------------------------------------------------------------- */
+        function renderRadicalsGrid() {
+            const grid = document.getElementById('radicals-grid');
+            grid.innerHTML = '';
+
+            RADICALS_DATA.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `${item.bg} text-white rounded-3xl p-4 flex flex-col items-center justify-between cursor-pointer bounce-on-hover shadow-lg min-h-[130px] border-4 border-white`;
+                card.onclick = () => openRadicalModal(item);
+
+                card.innerHTML = `
+                    <span class="text-xs font-black bg-white/20 px-2 py-0.5 rounded-full">${item.icon}</span>
+                    <span class="text-4xl font-black my-1">${item.name}</span>
+                    <span class="text-xs font-bold text-white/90">${item.pinyin}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openRadicalModal(item) {
+            state.selectedModalRadical = item;
+            document.getElementById('modal-radical-box').innerText = item.name;
+            document.getElementById('modal-radical-name').innerText = `${item.name}部`;
+            document.getElementById('modal-radical-pinyin').innerText = `${item.pinyin} • ${item.icon}`;
+            document.getElementById('modal-meaning').innerText = item.meaning;
+
+            const wordsContainer = document.getElementById('modal-words-container');
+            wordsContainer.innerHTML = '';
+            item.words.forEach(w => {
+                const wordBox = document.createElement('div');
+                wordBox.className = 'bg-teal-50 border border-teal-200 p-3 rounded-2xl text-center cursor-pointer hover:bg-teal-100';
+                wordBox.onclick = () => speakText(w.w);
+                wordBox.innerHTML = `
+                    <div class="text-2xl font-black text-teal-900">${w.w}</div>
+                    <div class="text-xs text-teal-600 font-bold">${w.p}</div>
+                `;
+                wordsContainer.appendChild(wordBox);
+            });
+
+            document.getElementById('btn-audio-modal').onclick = () => speakText(`${item.name}部，${item.meaning}`);
+            document.getElementById('btn-mark-master').onclick = () => markMastered(item.id);
+
+            document.getElementById('radical-modal').classList.remove('hidden');
+            speakText(`${item.name}部`);
+        }
+
+        function closeRadicalModal() {
+            document.getElementById('radical-modal').classList.add('hidden');
+        }
+
+        function markMastered(id) {
+            state.mastered.add(id);
+            document.getElementById('mastered-count').innerText = state.mastered.size;
+            
+            // Update Parent Progress Bar
+            const percent = Math.round((state.mastered.size / 15) * 100);
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-percent-text').innerText = `${percent}%`;
+
+            playAudioEffect('star');
+            closeRadicalModal();
+        }
+
+        /* -------------------------------------------------------------------------
+         * 6. SECTION 2: 互動遊戲區 LOGIC
+         * ------------------------------------------------------------------------- */
+        function loadGame(gameType) {
+            document.getElementById('game-fisherman').classList.add('hidden');
+            document.getElementById('game-builder').classList.add('hidden');
+            document.getElementById('gtab-fisherman').classList.remove('bg-white', 'text-teal-700', 'shadow-sm');
+            document.getElementById('gtab-builder').classList.remove('bg-white', 'text-teal-700', 'shadow-sm');
+
+            if (gameType === 'fisherman') {
+                document.getElementById('game-fisherman').classList.remove('hidden');
+                document.getElementById('gtab-fisherman').classList.add('bg-white', 'text-teal-700', 'shadow-sm');
+            } else {
+                document.getElementById('game-builder').classList.remove('hidden');
+                document.getElementById('gtab-builder').classList.add('bg-white', 'text-teal-700', 'shadow-sm');
+            }
+        }
+
+        /* GAME A: Radical Fisherman */
+        function setupFishermanGame() {
+            const pond = document.getElementById('fish-pond');
+            pond.innerHTML = '';
+
+            const options = [
+                { name: '氵', correct: true },
+                { name: '木', correct: false },
+                { name: '火', correct: false },
+                { name: '日', correct: false }
+            ];
+
+            options.sort(() => Math.random() - 0.5);
+
+            options.forEach((opt, idx) => {
+                const fish = document.createElement('button');
+                fish.className = 'w-20 h-20 bg-white/90 rounded-full text-3xl font-black text-sky-700 shadow-xl border-4 border-white flex flex-col items-center justify-center anim-float bounce-on-hover';
+                fish.style.animationDelay = `${idx * 0.5}s`;
+                fish.innerHTML = `🐟<span class="text-xl -mt-2">${opt.name}</span>`;
+                fish.onclick = () => catchFish(opt.correct);
+                pond.appendChild(fish);
+            });
+        }
+
+        function catchFish(isCorrect) {
+            if (isCorrect) {
+                state.fishScore += 10;
+                state.stars += 1;
+                document.getElementById('fish-score').innerText = `⭐ ${state.fishScore}`;
+                document.getElementById('total-stars-text').innerText = `⭐ ${state.stars}`;
+                playAudioEffect('star');
+                speakText('太棒了！答對了！');
+                setupFishermanGame(); // Reset round
+            } else {
+                speakText('差一點點，再試一次吧！');
+            }
+        }
+
+        /* GAME B: Character Builder */
+        function setupBuilderGame() {
+            const optionsContainer = document.getElementById('builder-options');
+            optionsContainer.innerHTML = '';
+
+            const options = ['火', '水', '木', '口'];
+            options.forEach(rad => {
+                const btn = document.createElement('button');
+                btn.className = 'w-16 h-16 bg-teal-400 text-white font-black text-2xl rounded-2xl shadow-md hover:bg-teal-500 bounce-on-hover';
+                btn.innerText = rad;
+                btn.onclick = () => selectBuilderRadical(rad);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectBuilderRadical(rad) {
+            document.getElementById('slot-radical-text').innerText = rad;
+            if (rad === '火') {
+                document.getElementById('builder-result-box').className = 'w-28 h-28 bg-emerald-100 border-4 border-emerald-500 rounded-2xl flex flex-col items-center justify-center shadow-lg';
+                document.getElementById('builder-target-text').innerText = '燈';
+                state.builderScore += 10;
+                document.getElementById('builder-score').innerText = `⭐ ${state.builderScore}`;
+                playAudioEffect('star');
+                speakText('太厲害了！火字旁加上登，組合成了「燈」字！');
+            } else {
+                speakText('再試試看別的部首吧！');
+            }
+        }
+
+        function clearBuilderSlot() {
+            document.getElementById('slot-radical-text').innerText = '?';
+            document.getElementById('builder-target-text').innerText = '❓';
+        }
+
+        /* -------------------------------------------------------------------------
+         * 7. SECTION 3: 動畫故事區 LOGIC
+         * ------------------------------------------------------------------------- */
+        const STORY_PAGES = [
+            { text: "今天天空下起了大雨，嘟嘟連忙抬頭看。天空中的「雨」字變成了烏雲與水滴！", visual: "☁️ 💧 🐼" },
+            { text: "嘟嘟伸出手接住水滴，發現「雨」字部的字都和天氣有關，比如雲朵和雪花！", visual: "❄️ 🌧️ 🐼" },
+            { text: "走著走著，太陽公公出來了！「日」字部閃耀著金黃色的光芒！", visual: "☀️ 🌤️ 🐼" },
+            { text: "嘟嘟太開心了！原來觀察生活周圍，就能找到好多有趣的部首呢！", visual: "🎉 🐼 ⭐" }
+        ];
+        let currentStoryIndex = 0;
+
+        function updateStoryUI() {
+            const page = STORY_PAGES[currentStoryIndex];
+            document.getElementById('story-text').innerText = page.text;
+            document.getElementById('story-visual').innerText = page.visual;
+            document.getElementById('story-step-indicator').innerText = `頁數: ${currentStoryIndex + 1} / ${STORY_PAGES.length}`;
+        }
+
+        function nextStoryStep() {
+            if (currentStoryIndex < STORY_PAGES.length - 1) {
+                currentStoryIndex++;
+                updateStoryUI();
+                playAudioEffect('click');
+            }
+        }
+
+        function prevStoryStep() {
+            if (currentStoryIndex > 0) {
+                currentStoryIndex--;
+                updateStoryUI();
+                playAudioEffect('click');
+            }
+        }
+
+        function readStoryCurrentPage() {
+            speakText(STORY_PAGES[currentStoryIndex].text);
+        }
+
+        /* -------------------------------------------------------------------------
+         * 8. SECTION 4: 語音朗讀區 LOGIC
+         * ------------------------------------------------------------------------- */
+        function renderVoiceFlashcards() {
+            const container = document.getElementById('voice-flashcards-grid');
+            container.innerHTML = '';
+
+            RADICALS_DATA.slice(0, 9).forEach(item => {
+                const card = document.createElement('button');
+                card.className = 'bg-slate-50 border-2 border-slate-200 hover:border-teal-400 p-3 rounded-2xl flex flex-col items-center justify-center bounce-on-hover shadow-sm';
+                card.onclick = () => speakText(`${item.name}部`);
+                card.innerHTML = `
+                    <span class="text-2xl font-black text-teal-800">${item.name}</span>
+                    <span class="text-xs text-slate-400 font-bold"><i class="fa-solid fa-volume-high"></i> 聽音</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function setupVoiceQuiz() {
+            const target = RADICALS_DATA[Math.floor(Math.random() * 6)];
+            state.voiceQuizTarget = target;
+
+            const optionsContainer = document.getElementById('voice-quiz-options');
+            optionsContainer.innerHTML = '';
+
+            const quizChoices = [target, ...RADICALS_DATA.filter(r => r.id !== target.id).slice(0, 2)];
+            quizChoices.sort(() => Math.random() - 0.5);
+
+            quizChoices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'bg-amber-100 hover:bg-amber-200 text-amber-900 font-black text-2xl p-4 rounded-2xl shadow-sm bounce-on-hover';
+                btn.innerText = choice.name;
+                btn.onclick = () => {
+                    if (choice.id === target.id) {
+                        playAudioEffect('star');
+                        speakText('答對了！太棒了！');
+                        setupVoiceQuiz();
+                    } else {
+                        speakText('再聽一次試試看！');
+                    }
+                };
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function playVoiceQuizAudio() {
+            if (state.voiceQuizTarget) {
+                speakText(state.voiceQuizTarget.name);
+            }
+        }
+
+        /* -------------------------------------------------------------------------
+         * 9. SECTION 5: 家長支援區 (Print & PDF Mode)
+         * ------------------------------------------------------------------------- */
+        function printWorksheet() {
+            window.print();
+        }
+
+        function closeRestModal() {
+            document.getElementById('rest-modal').classList.add('hidden');
+            state.secondsSpent = 0; // Reset rest timer
+        }
+    </script>
+</body>
+</html>
